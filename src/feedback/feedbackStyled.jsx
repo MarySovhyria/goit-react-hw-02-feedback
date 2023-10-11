@@ -9,3 +9,7 @@ export const Neutral = styled.button `
 export const Bad = styled.button `
     color: red;
 `
+export const Container = styled.div `
+    display: flex;
+    flex-direction: column
+`
