@@ -1,10 +1,14 @@
 import { Good, Neutral, Bad } from "feedback/feedbackStyled";
-function FeedbackOptions({ onClickButtons }) {
+function FeedbackOptions({ onClickButtons, options }) {
+
     return (
       <div className="btn-wrapper">
-      <Good onClick={() => onClickButtons("Good")}>Good</Good>
-      <Neutral onClick={() => onClickButtons("Neutral")}>Neutral</Neutral>
-      <Bad onClick={() => onClickButtons("Bad")}>Bad</Bad>
+       {options.map((option) => (
+    <button key={option} onClick={() => onClickButtons(option)}>
+      {option}
+    </button>
+  ))}
+      
     </div>
     );
   }

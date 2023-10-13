@@ -8,39 +8,42 @@ class App extends Component {
     good: 0,
     neutral: 0,
     bad: 0,
+    // options: ' ',
   };
 
-  onClickButtons = (e) => {
-    this.setState((prevState) => {
-      if (e === 'Good') {
-        return { good: prevState.good + 1 };
-      }
-      if (e === 'Neutral') {
-        return { neutral: prevState.neutral + 1 };
-      }
-      if (e === 'Bad') {
-        return { bad: prevState.bad + 1 };
-      }
-    });
+  onClickButtons = (option) => {
+    this.setState((prevState) => ({
+      [option]: prevState[option] + 1
+    }));
   };
+  countTotal = () => {
+    const {good, neutral, bad} = this.state;
+    return good + neutral + bad
+  }
+  countPercent = () => {
+    const {good} = this.state;
+    return Math.floor((good / this.countTotal()) * 100);
+  }
 
   render() {
     const { good, neutral, bad } = this.state;
 
-    const total = good + bad + neutral;
-    const percent = Math.floor((good / total) * 100);
-
+    const btnNames = Object.keys(this.state)
     return (
       <div className="container">
         <div className="wrapper">
-          <FeedbackOptions onClickButtons={this.onClickButtons} />
-          {total > 0 ? (
+          <FeedbackOptions 
+          onClickButtons={this.onClickButtons}
+          options={btnNames}
+          />
+          {this.countTotal() > 0 ? (
         <Statistics
           good={good}
           bad={bad}
           neutral={neutral}
-          total={total}
-          percent={percent}
+          total={this.countTotal()}
+          percent={this.countPercent()}
+         
         />
       ) : (
         <Notification message="There is no feedback" />

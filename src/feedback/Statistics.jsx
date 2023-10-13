@@ -1,5 +1,5 @@
 import { Container } from "feedback/feedbackStyled";
-function Statistics({ good, bad, neutral, total, percent }) {
+function Statistics({ good, bad, neutral, total, percent}) {
     return (
       <Container>
         <span>Good: {good}</span>
