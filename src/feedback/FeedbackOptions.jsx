@@ -2,22 +2,10 @@ import { Good, Neutral, Bad } from "feedback/feedbackStyled";
 function FeedbackOptions({ onClickButtons }) {
     return (
       <div className="btn-wrapper">
-        <Good
-          onClick={e => onClickButtons(e.target.textContent)}
-        >
-          Good
-        </Good>
-        <Neutral
-          onClick={e => onClickButtons(e.target.textContent)}
-        >
-          Neutral
-        </Neutral>
-        <Bad
-          onClick={e => onClickButtons(e.target.textContent)}
-        >
-          Bad
-        </Bad>
-      </div>
+      <Good onClick={() => onClickButtons("Good")}>Good</Good>
+      <Neutral onClick={() => onClickButtons("Neutral")}>Neutral</Neutral>
+      <Bad onClick={() => onClickButtons("Bad")}>Bad</Bad>
+    </div>
     );
   }
   

@@ -1,31 +1,40 @@
-import FeedbackOptions from "feedback/FeedbackOptions";
-import Statistics from "feedback/Statistics";
-import React, { useState } from 'react';
+import FeedbackOptions from "./feedback/FeedbackOptions";
+import Statistics from "./feedback/Statistics";
+import React, { Component } from 'react';
+import { Notification } from "feedback/Notification";
 
-function App() {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
+class App extends Component {
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
 
-  function onClickButtons(e) {
-    if (e === 'Good') {
-      setGood(e => e + 1);
-    }
-    if (e === 'Neutral') {
-      setNeutral(e => e + 1);
-    }
-    if (e === 'Bad') {
-      setBad(e => e + 1);
-    }
-  }
+  onClickButtons = (e) => {
+    this.setState((prevState) => {
+      if (e === 'Good') {
+        return { good: prevState.good + 1 };
+      }
+      if (e === 'Neutral') {
+        return { neutral: prevState.neutral + 1 };
+      }
+      if (e === 'Bad') {
+        return { bad: prevState.bad + 1 };
+      }
+    });
+  };
 
-  const total = good + bad + neutral;
-  const percent = Math.floor((good / total) * 100);
+  render() {
+    const { good, neutral, bad } = this.state;
 
-  return (
-    <div className="container">
-      <div className="wrapper">
-        <FeedbackOptions onClickButtons={onClickButtons} />
+    const total = good + bad + neutral;
+    const percent = Math.floor((good / total) * 100);
+
+    return (
+      <div className="container">
+        <div className="wrapper">
+          <FeedbackOptions onClickButtons={this.onClickButtons} />
+          {total > 0 ? (
         <Statistics
           good={good}
           bad={bad}
@@ -33,9 +42,14 @@ function App() {
           total={total}
           percent={percent}
         />
+      ) : (
+        <Notification message="There is no feedback" />
+      )}
+          
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
