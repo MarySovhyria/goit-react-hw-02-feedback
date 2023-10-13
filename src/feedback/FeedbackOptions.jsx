@@ -1,4 +1,3 @@
-import { Good, Neutral, Bad } from "feedback/feedbackStyled";
 function FeedbackOptions({ onClickButtons, options }) {
 
     return (
